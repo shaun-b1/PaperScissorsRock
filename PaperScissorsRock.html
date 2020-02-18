@@ -7,38 +7,81 @@
   <body>
     <script>
 
+      //Varibles for strings that let you know if you lost, drew or won
       let computerWins = "You lost!";
       let tie = "It's a draw!";
       let playerWins = "You won!";
 
-      let playerChoice = prompt("Do you choose Rock, Paper, or Scissors?")
-
+      //Function to reformat answer to have a capital first letter, and lowercase the rest of the string
       function reformat(str){
         return(str.toUpperCase()[0] + str.toLowerCase().slice(1))
       }
 
-      let playerSelection = reformat(playerChoice)
+      //Function declaring player's input
+      function playerSelection() {
+        let playerOptions = prompt("Do you choose Rock, Paper, or Scissors?")
+        let playerChoice = reformat(playerOptions)
+        return playerChoice
+      }
 
-      function computerPlay() {
+
+      //Function declaring the computer's pick
+      function computerSelection() {
         const computerOptions = ["Rock", "Paper", "Scissors"];
         const computerChoice = computerOptions[Math.floor(Math.random() * computerOptions.length)];
         return computerChoice;
       }
 
-      let computerSelection = computerPlay()
+      //Variables declaring the score at 0
+      let playerScore = 0;
+      let tieScore = 0;
+      let computerScore = 0;
 
-      function playRound(playerSelection, computerSelection) {
-        if (playerSelection == "Rock" && computerSelection == "Paper" || playerSelection == "Paper" && computerSelection == "Scissors" || playerSelection == "Scissors" && computerSelection == "Rock"){
+      //Function for playing one round
+      function playRound(playerPlay, computerPlay) {
+        if (playerPlay == "Rock" && computerPlay == "Paper" || playerPlay == "Paper" && computerPlay == "Scissors" || playerPlay == "Scissors" && computerPlay == "Rock"){
+          computerScore++;
           console.log(computerWins)
         }
-        else if (playerSelection == "Rock" && computerSelection == "Scissors" || playerSelection == "Paper" && computerSelection == "Rock" || playerSelection == "Scissors" && computerSelection == "Paper"){
+        else if (playerPlay == "Rock" && computerPlay == "Scissors" || playerPlay == "Paper" && computerPlay == "Rock" || playerPlay == "Scissors" && computerPlay == "Paper"){
+          playerScore++
           console.log(playerWins)
         }
         else{
+          tieScore++
           console.log(tie)
         }
       }
-      playRound(playerSelection, computerSelection);
+
+      //Function for playing a game of five rounds
+      function playGame() {
+        let playerPlay = playerSelection()
+        let computerPlay = computerSelection()
+
+        playRound(playerPlay, computerPlay)
+        console.log(playerScore, tieScore, computerScore)
+
+        playerPlay = playerSelection()
+        computerPlay = computerSelection()
+        playRound(playerPlay, computerPlay)
+        console.log(playerScore, tieScore, computerScore)
+
+        playerPlay = playerSelection()
+        computerPlay = computerSelection()
+        playRound(playerPlay, computerPlay)
+        console.log(playerScore, tieScore, computerScore)
+
+        playerPlay = playerSelection()
+        computerPlay = computerSelection()
+        playRound(playerPlay, computerPlay)
+        console.log(playerScore, tieScore, computerScore)
+
+        playerPlay = playerSelection()
+        computerPlay = computerSelection()
+        playRound(playerPlay, computerPlay)
+        console.log(playerScore, tieScore, computerScore)
+      }
+      playGame()
     </script>
   </body>
 </html>
